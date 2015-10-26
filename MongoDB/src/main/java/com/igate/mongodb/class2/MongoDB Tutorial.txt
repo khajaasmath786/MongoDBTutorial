@@ -1,0 +1,233 @@
+Mongo DB -->(Its called JSON Document store) Non relation datastore which stores json documents. It's Non relations because it doesnt not have tables and stores the JSON objects (including hierarchy structure in file).
+JSON --> Java Script Object Notation.
+
+JSON documnet has key and value ... key and value are seperated by colon :
+{'Key',value}  --> 
+
+Example 
+{'a':1,
+ 'b':2
+ 'c':3,}
+ 
+ Example of Hierarchy
+ 
+ {a:1,
+  b:2
+ c:3,
+ fruits:['apple','banana','grape']}
+ 
+ MongoDB is schema less: It can have any documents with different schemas
+
+
+
+
+MongoDB is schema less, scalabale , cannot support jons and transactions, and high performance datastore . where as oracle and relational databases are not scalable and trnsactional. 
+-------------
+
+MongoDB opens MOnGoD Porcess . MongoSHell connects to MongoDB through TCP. 
+
+SparkJava and Freemarker are standalone jave programs which are used to easily write webapps.
+
+SparkJava is framework that easily set up routes to map to URL's. 
+FreeMarker is templating language that allows us to create HTML views.MongoDB java driver is the one which connects to MongoDB through java program.
+
+Mongo shell is started by entering command mongo in the command prompt. use daastest database similar to hive .. use daastest.(Note: No Semicolon)
+
+Insert Collection in mongoshell db.things.save({a:1,b:2,c:3})   --> here also we are inserting json object inside mongodb. (Note : Use ( and { for creating json object)
+db.things.save({a:1,b:2,c:3, d:4})
+We can insert two collections with same name. when we query it, we get both the collectons but with different objectid.
+Collection --> db.things.save({a:1,b:2,c:3, d:4,fruits:[apple,banana,orange]})
+Nested Document --> db.things.save({a:1,b:2,c:3, d:4,address:{Street:312,City:Westmont,ZIp:60559}}) --> Documents are differnetiated by {} and collections by []
+Pretty command --> db.things.find().pretty() --> will show things objects in pretty good way. see difference between find() and find().pretty().
+
+retreive collection in mongoshell db.things.find() --> Things object is displayed.
+Insert Collection in mongoshell db.things.save({a:1,b:2,c:3})   --> here also we are inserting json object inside mongodb.
+
+-------------------Installation on windows ----------------
+Donwload from MondoDB dowloads.
+After extracting, MOngoDB is installed in windows under disk C:Programfiles/mongodb. Bin directory has two important files mongo and mongod exeutables
+Mongo is for mongoshell
+MondoD is the server.
+
+Add Path variable of mongodb bin folder to system.
+
+md \data\db is the defualt folder in windows where mongodb puts the server logs.
+command : mongod --> 
+
+------------------ Install Maven in windows --------------------------------------------------------------
+
+Download Maven from google and add path of maven (till bin)
+Type mvn in command prompt.
+
+----------------- Install Spark in Windows ---------------------------------------------------------------
+
+Spark Java is web framework. http://sparkjava.com/download.html click on downloads to get mvn details.
+
+  <dependencies>
+  <dependency>
+    <groupId>com.sparkjava</groupId>
+    <artifactId>spark-core</artifactId>
+    <version>2.3</version>
+</dependency>
+</dependencies>
+
+
+Go to Spark java and check on downloads folders. You wil see information to add dependency in pom.xml
+
+Spark Java doesnt need application server to run.It comes inbuild. When you run application, we can see the port number on the console.
+
+In java class, call method Spark.get(new Route("/")) { Public object handle (Request request,Response response) return "hello world"}
+
+Run that application will give port number
+
+
+----------------- Free marker --------------
+
+Free marker is used to create templates and initialize pages
+
+-------------------------------------------------------------------
+
+Spark internally has server which is jetty.
+When the request is send from the brower, it goes to Spark Handler which has different handlers like /,/test,/echo (present in teh application). Handler is executed
+and send back to brower.
+
+------MongoDB Commands-------------------MongoDB is Schemaless.-------------------------------------------
+MongoDB is Schemaless.
+
+
+What is difference between save and insert.
+
+In MongoDB, we can create and modify the existing object .. lets do it.
+
+
+First invoke MongoD server and then mongo shell in seperate command windows.
+
+Step1:Create new users object
+
+db.users.insert({'name':'Asmath','city':'WestMont'})
+
+Step2:Add zipcode
+db.users.insert({'name':'Khaja','city':'WestMont','zip':'60559'})
+
+Step3: Retreive users object
+db.users.find().pretty()
+
+two are displayed.
+
+Step4: Retreive specific record using findOne() command and save that instance. Note One starts with Capital
+
+var j=db.users.findOne({'name':'Asmath'})
+j.zip='60148'
+db.users.save(j)
+
+Step5: See if Schema is changed.
+db.users.find().pretty()
+
+
+------JSON Revisited------------------------------------------------------------
+
+JSON has two types of datatypes -- Arrays and dictionaries
+
+Arrays starts and close with []
+Dictononaries anything between {}  --> See previous examples.
+
+({'fruit':['apple','banana','peech'],'name':'Asmath'})
+
+------------JSON SUB Documents ------------------------------------------------
+
+({'address':{'street':'22','House':'209','zip':'60559'}})
+
+------------BLOG Project-------------------------------------------------------
+
+Tables in it
+
+
+POSTS   post_id,author_id,title,post,date
+
+
+COMMENTS  comment_id,name,comment,email   --> commemts on blog
+
+
+POST_TAGS  post_id,tag_id
+
+
+POST_COMMENTS  post_id,comment_id         ---> comments on posts.
+
+
+TAGS  tag_id,name
+
+
+AUTHORS  author_id,username,password
+
+-----------**** Modelling JSON BLOG in MOngoDB**********---------------------------
+
+POSTS
+
+{
+'title':'',
+'body':'',
+'author':'',
+'comments':[ {name:asa,email:dad,comment:adas},{},{}]
+		
+			
+tags:['cycling','education','startups']
+
+
+
+}
+
+Posts has title,body,author with array of comments(which is document) and array of tags.
+since mongodb is schemaless,you can leave email etc if needed for one record and other you can enter also.
+
+---------------------***** Differnce betw RDMS and Mongo-------------------------------------------------------------
+Differnce betw RDMS and Mongo
+
+In above example you put all tables seperately in RDBMS where as in MongoDB you can put all in one place and it is schema less so you can skip too.
+
+------------------------------HOME WORK CLASS 1
+
+------------------------------1.1
+
+mongorestore
+mongodump commands
+
+Go to cd C:\Users\mc41946\Desktop\MongoDB\week_1_introduction.4502c8ab0e14\homework_1_1\hw1-1 and execute mongorestore. The database is imported automatically. 
+connect to mongo shell and then execute show databases command. you can see m101 as database.
+
+use m101
+show collections
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

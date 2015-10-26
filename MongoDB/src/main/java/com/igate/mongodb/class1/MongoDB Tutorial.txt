@@ -1,0 +1,1 @@
+CRUD is Create, Find,Update,Remove in MongoDB.
